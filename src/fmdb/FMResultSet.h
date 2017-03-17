@@ -36,15 +36,15 @@
 
 /** Executed query */
 
-@property (atomic, retain) NSString *query;
+@property (atomic, retain, nullable) NSString *query;
 
 /** `NSMutableDictionary` mapping column names to numeric index */
 
-@property (readonly) NSMutableDictionary *columnNameToIndexMap;
+@property (readonly, nullable) NSMutableDictionary *columnNameToIndexMap;
 
 /** `FMStatement` used by result set. */
 
-@property (atomic, retain) FMStatement *statement;
+@property (atomic, retain, nonnull) FMStatement *statement;
 
 ///------------------------------------
 /// @name Creating and closing database
@@ -59,13 +59,13 @@
  @return A `FMResultSet` on success; `nil` on failure
  */
 
-+ (instancetype)resultSetWithStatement:(FMStatement *)statement usingParentDatabase:(FMDatabase*)aDB;
++ (nonnull instancetype)resultSetWithStatement:(nonnull FMStatement *)statement usingParentDatabase:(nullable FMDatabase*)aDB;
 
 /** Close result set */
 
 - (void)close;
 
-- (void)setParentDB:(FMDatabase *)newDb;
+- (void)setParentDB:(nullable FMDatabase *)newDb;
 
 ///---------------------------------------
 /// @name Iterating through the result set
@@ -93,7 +93,7 @@
  @see hasAnotherRow
  */
 
-- (BOOL)nextWithError:(NSError **)outErr;
+- (BOOL)nextWithError:(NSError * _Nullable * _Nullable)outErr;
 
 /** Did the last call to `<next>` succeed in retrieving another row?
 
@@ -124,7 +124,7 @@
  @return Zero-based index for column.
  */
 
-- (int)columnIndexForName:(NSString*)columnName;
+- (int)columnIndexForName:(nonnull NSString*)columnName;
 
 /** Column name for column index
 
@@ -133,7 +133,7 @@
  @return columnName `NSString` value of the name of the column.
  */
 
-- (NSString*)columnNameForIndex:(int)columnIdx;
+- (nullable NSString*)columnNameForIndex:(int)columnIdx;
 
 /** Result set integer value for column.
 
@@ -142,7 +142,7 @@
  @return `int` value of the result set's column.
  */
 
-- (int)intForColumn:(NSString*)columnName;
+- (int)intForColumn:(nonnull NSString*)columnName;
 
 /** Result set integer value for column.
 
@@ -160,7 +160,7 @@
  @return `long` value of the result set's column.
  */
 
-- (long)longForColumn:(NSString*)columnName;
+- (long)longForColumn:(nonnull NSString*)columnName;
 
 /** Result set long value for column.
 
@@ -178,7 +178,7 @@
  @return `long long int` value of the result set's column.
  */
 
-- (long long int)longLongIntForColumn:(NSString*)columnName;
+- (long long int)longLongIntForColumn:(nonnull NSString*)columnName;
 
 /** Result set `long long int` value for column.
 
@@ -196,7 +196,7 @@
  @return `unsigned long long int` value of the result set's column.
  */
 
-- (unsigned long long int)unsignedLongLongIntForColumn:(NSString*)columnName;
+- (unsigned long long int)unsignedLongLongIntForColumn:(nonnull NSString*)columnName;
 
 /** Result set `unsigned long long int` value for column.
 
@@ -214,7 +214,7 @@
  @return `BOOL` value of the result set's column.
  */
 
-- (BOOL)boolForColumn:(NSString*)columnName;
+- (BOOL)boolForColumn:(nonnull NSString*)columnName;
 
 /** Result set `BOOL` value for column.
 
@@ -233,7 +233,7 @@
  
  */
 
-- (double)doubleForColumn:(NSString*)columnName;
+- (double)doubleForColumn:(nonnull NSString*)columnName;
 
 /** Result set `double` value for column.
 
@@ -253,7 +253,7 @@
  
  */
 
-- (NSString*)stringForColumn:(NSString*)columnName;
+- (nullable NSString*)stringForColumn:(nonnull NSString*)columnName;
 
 /** Result set `NSString` value for column.
 
@@ -262,7 +262,7 @@
  @return `NSString` value of the result set's column.
  */
 
-- (NSString*)stringForColumnIndex:(int)columnIdx;
+- (nullable NSString*)stringForColumnIndex:(int)columnIdx;
 
 /** Result set `NSDate` value for column.
 
@@ -271,7 +271,7 @@
  @return `NSDate` value of the result set's column.
  */
 
-- (NSDate*)dateForColumn:(NSString*)columnName;
+- (nullable NSDate*)dateForColumn:(nonnull NSString*)columnName;
 
 /** Result set `NSDate` value for column.
 
@@ -281,7 +281,7 @@
  
  */
 
-- (NSDate*)dateForColumnIndex:(int)columnIdx;
+- (nullable NSDate*)dateForColumnIndex:(int)columnIdx;
 
 /** Result set `NSData` value for column.
  
@@ -293,7 +293,7 @@
  
  */
 
-- (NSData*)dataForColumn:(NSString*)columnName;
+- (nullable NSData*)dataForColumn:(nonnull NSString*)columnName;
 
 /** Result set `NSData` value for column.
 
@@ -302,7 +302,7 @@
  @return `NSData` value of the result set's column.
  */
 
-- (NSData*)dataForColumnIndex:(int)columnIdx;
+- (nullable NSData*)dataForColumnIndex:(int)columnIdx;
 
 /** Result set `(const unsigned char *)` value for column.
 
@@ -311,7 +311,7 @@
  @return `(const unsigned char *)` value of the result set's column.
  */
 
-- (const unsigned char *)UTF8StringForColumnName:(NSString*)columnName;
+- (nullable const unsigned char *)UTF8StringForColumnName:(nonnull NSString*)columnName;
 
 /** Result set `(const unsigned char *)` value for column.
 
@@ -320,7 +320,7 @@
  @return `(const unsigned char *)` value of the result set's column.
  */
 
-- (const unsigned char *)UTF8StringForColumnIndex:(int)columnIdx;
+- (nullable const unsigned char *)UTF8StringForColumnIndex:(int)columnIdx;
 
 /** Result set object for column.
 
@@ -331,7 +331,7 @@
  @see objectForKeyedSubscript:
  */
 
-- (id)objectForColumnName:(NSString*)columnName;
+- (nullable id)objectForColumnName:(nonnull NSString*)columnName;
 
 /** Result set object for column.
 
@@ -342,7 +342,7 @@
  @see objectAtIndexedSubscript:
  */
 
-- (id)objectForColumnIndex:(int)columnIdx;
+- (nullable id)objectForColumnIndex:(int)columnIdx;
 
 /** Result set object for column.
  
@@ -363,7 +363,7 @@
  @return Either `NSNumber`, `NSString`, `NSData`, or `NSNull`. If the column was `NULL`, this returns `[NSNull null]` object.
  */
 
-- (id)objectForKeyedSubscript:(NSString *)columnName;
+- (nullable id)objectForKeyedSubscript:(nonnull NSString *)columnName;
 
 /** Result set object for column.
 
@@ -384,7 +384,7 @@
  @return Either `NSNumber`, `NSString`, `NSData`, or `NSNull`. If the column was `NULL`, this returns `[NSNull null]` object.
  */
 
-- (id)objectAtIndexedSubscript:(int)columnIdx;
+- (nullable id)objectAtIndexedSubscript:(int)columnIdx;
 
 /** Result set `NSData` value for column.
 
@@ -398,7 +398,7 @@ If you don't, you're going to be in a world of hurt when you try and use the dat
  
  */
 
-- (NSData*)dataNoCopyForColumn:(NSString*)columnName NS_RETURNS_NOT_RETAINED;
+- (nullable NSData*)dataNoCopyForColumn:(nonnull NSString*)columnName NS_RETURNS_NOT_RETAINED;
 
 /** Result set `NSData` value for column.
 
@@ -412,7 +412,7 @@ If you don't, you're going to be in a world of hurt when you try and use the dat
 
  */
 
-- (NSData*)dataNoCopyForColumnIndex:(int)columnIdx NS_RETURNS_NOT_RETAINED;
+- (nullable NSData*)dataNoCopyForColumnIndex:(int)columnIdx NS_RETURNS_NOT_RETAINED;
 
 /** Is the column `NULL`?
  
@@ -430,7 +430,7 @@ If you don't, you're going to be in a world of hurt when you try and use the dat
  @return `YES` if column is `NULL`; `NO` if not `NULL`.
  */
 
-- (BOOL)columnIsNull:(NSString*)columnName;
+- (BOOL)columnIsNull:(nonnull NSString*)columnName;
 
 
 /** Returns a dictionary of the row results mapped to case sensitive keys of the column names. 
@@ -440,7 +440,7 @@ If you don't, you're going to be in a world of hurt when you try and use the dat
  @warning The keys to the dictionary are case sensitive of the column names.
  */
 
-- (NSDictionary*)resultDictionary;
+- (nullable NSDictionary*)resultDictionary;
  
 /** Returns a dictionary of the row results
  
@@ -449,7 +449,7 @@ If you don't, you're going to be in a world of hurt when you try and use the dat
  @warning **Deprecated**: Please use `<resultDictionary>` instead.  Also, beware that `<resultDictionary>` is case sensitive! 
  */
 
-- (NSDictionary*)resultDict  __attribute__ ((deprecated));
+- (nullable NSDictionary*)resultDict  __attribute__ ((deprecated));
 
 ///-----------------------------
 /// @name Key value coding magic
@@ -461,7 +461,7 @@ If you don't, you're going to be in a world of hurt when you try and use the dat
 
  */
 
-- (void)kvcMagic:(id)object;
+- (void)kvcMagic:(nonnull id)object;
 
  
 @end
